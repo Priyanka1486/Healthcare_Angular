@@ -1,0 +1,84 @@
+<div class="container">
+    <nav class="navbar navbar-light bg-light navbar-expand-lg">
+        <span class="navbar-brand mb-0 h1">Medicare</span>
+        <button class="navbar-toggler" type="button" 
+           data-toggle="collapse" 
+           data-target="#navbarNav" 
+           aria-controls="navbarNavDropdown" 
+           aria-expanded="false" 
+           aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="/home">Home</a>
+              </li>
+    
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/about">About <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/contacts">Contact</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/cart">Cart</a>
+              </li>
+              </ul>
+              <p class="text-info ml-auto" >Welcome : {{user.firstName}}</p>
+              <ul class="navbar-nav ml-auto">  
+              <li class="nav-item" >
+                <a class="nav-link" (click)="logout()">Logout</a>
+              </li>    
+            </ul>
+          </div>
+    </nav>
+    </div>
+    <hr>
+  
+<div class="container">
+<hr>
+<h4 class="display-5 font-weight-bold text-info">Product List</h4>
+<hr>
+<form [formGroup]="searchForm" (ngSubmit)="search()">
+  <div class="form-group" >
+      <input type="text" formControlName="search" placeholder="search" class="form-control-inline" />
+      <button class="btn btn-primary">search</button>
+  </div>
+</form>
+
+<table class="table table-striped table-bordered table-hover" >
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Qty.Avail</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products">
+            <td>{{product.id}}</td>
+            <td><a [routerLink]="['/productdetail',product.id]"><img style="width:60px;height:60px" src="{{imgsrc + product.image}}"></a>
+            <td><a [routerLink]="['/productdetail',product.id]">{{product.productName}}</a></td>
+            <td>{{product.brand}}</td>
+            <td>{{product.availableQuantity}}</td>
+            <td>{{product.price}}</td>
+            <td><select #action class="form-control">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </td>
+            <td><button class="btn btn-primary" (click)="addToCart(product,action.value)" >Add to cart</button></td>
+        </tr>
+    </tbody>
+</table>
+    <a class="btn btn-primary" routerLink="/cart" role="button" >Proceed</a>
+</div>
